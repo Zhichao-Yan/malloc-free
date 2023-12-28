@@ -23,7 +23,7 @@ test: $(lib) ./tests/run_tests
 
 # do test clean
 testclean:
-	rm -rf test/
+	rm -rf tests/*
 
 # do testupdate will fist finish testclean and then do new test
 testupdate: testclean test
