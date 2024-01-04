@@ -1,17 +1,17 @@
 dir := ./build
-lib := $(dir)/allocator.so
-obj := $(dir)/main
+lib := $(dir)/liballocator.so
 DEBUG ?= 0
-
+CC := gcc
 CFLAGS := -Wall -g -pthread -fPIC -shared
 
-$(obj): $(lib)
-	gcc -o $(obj) main.c $(lib)
-
+# generate allocator.so
 $(lib): allocator.c 
-	gcc $(CFLAGS) -DDEBUG=$(DEBUG) allocator.c -o $(lib)
+	$(CC) $(CFLAGS) -DDEBUG=$(DEBUG) allocator.c -o $(lib)
 
 clean:
 	rm -rf $(dir)/*
+
+test: $(lib)
+	@cd ./tests; ./test.sh 
 
 
