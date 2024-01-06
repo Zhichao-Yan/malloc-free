@@ -1,5 +1,0 @@
-Memory Scribbling
-Sat Jan  6 13:21:37 CST 2024
-<------expected result------>
-Printing uninitialized variables: -1431655766 -1431655766 -1431655766 12297829382473034410 aaaaaaaa aaaaaaaaaaaaaaaa Totalling up uninitialized arrays: 850000 calloc should still zero out the memory: 0
-<------actual result-------->
