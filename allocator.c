@@ -2,7 +2,7 @@
  * @Author       : chao
  * @Date         : 2023-11-10 16:12:17 +0800
  * @LastEditors  : yan yzc53@icloud.com
- * @LastEditTime : 2024-01-03 17:53:41 +0800
+ * @LastEditTime : 2024-01-06 08:57:20 +0800
  * @FilePath     : /malloc/allocator.c
  * @Description  :
  * @QQ           : 1594047159@qq.com
@@ -246,6 +246,7 @@ void *malloc(size_t request_size)
 
     /* returned ptr of data portion */
     void *rptr = NULL;
+
 
     /* caclulate the blocksize according to request_size */
     size_t block_size = BLOCK_SIZE(request_size);

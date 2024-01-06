@@ -1,19 +1,38 @@
 #!/bin/bash
 
 # first clean, then compile all files
-#make clean all
-exec 1>output.txt
-lib=../build/liballocator.so
 
-echo "Unix Utilities" \
-    "Runs 'ls /'  with custom memory allocator"
-
-if [ -e $lib ]
+cases=""
+# echo $@
+if [ $# -eq 0 ]
 then
-    expected=$(ls /)
-    echo "expected result:"
-    echo $expected
-    actual=$(LD_PRELOAD=$lib ls /)
-    echo "actual result:"
-    echo $actual
+    cases=$(ls -1 ./script/*-*.sh)
+else
+    for num in "$@"
+    do
+        test_id=$(printf "%d" $num)
+        file=$(ls -1 ./script/*-$test_id.sh)
+        cases=$cases$file$'\n'
+    done
 fi
+# echo $cases
+
+echo "Building test programs...."
+make clean all -s
+
+for case in $cases
+do
+    if [ -x $case ]
+    then 
+        ${case}
+    else
+        chmod +x "$case"
+        ${case}
+    fi
+    if [ $? -ne 0 ]
+    then
+        echo $case"  [ FAILED ]"
+    # else
+    #     #echo $case"  [ OK ]"
+    fi
+done

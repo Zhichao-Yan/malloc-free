@@ -2,8 +2,8 @@
  * @Author       : chao
  * @Date         : 2024-01-01 15:22:29 +0800
  * @LastEditors  : yan yzc53@icloud.com
- * @LastEditTime : 2024-01-03 15:52:24 +0800
- * @FilePath     : /malloc/tests/progs/allocations-2.c
+ * @LastEditTime : 2024-01-06 13:02:27 +0800
+ * @FilePath     : /malloc/tests/progs/total_pages_allocated.c
  * @Description  : 
  * @QQ           : 1594047159@qq.com
  * Copyright (c) 2024,All Rights Reserved. 
@@ -33,6 +33,6 @@ int main(void)
 
     printf("Pages at start = %zd\n",vm_start);
     printf("pages at end   = %zd\n",vm_end);
-    printf("Allocated total %zd pages!\n",vm_start - vm_end);
+    printf("Allocated total %zd pages!\n",vm_end - vm_start);
     return 0;
 }

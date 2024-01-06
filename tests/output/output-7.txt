@@ -1,0 +1,13 @@
+Basic Best Fit
+Sat Jan  6 13:21:35 CST 2024
+-- Current Memory State --
+[REGION 0x1020dc000]
+	[BLOCK 0x1020dc000-0x1020dc090]	     144(100)		[USED]
+	[BLOCK 0x1020dc090-0x1020dc120]	     144(0)		[FREE]
+	[BLOCK 0x1020dc120-0x1020dc1b0]	     144(100)		[USED]
+	[BLOCK 0x1020dc1b0-0x1020dc1f0]	      64(10)		[USED]
+	[BLOCK 0x1020dc1f0-0x1020dc280]	     144(100)		[USED]
+	[BLOCK 0x1020dc280-0x1020dc310]	     144(100)		[USED]
+	[BLOCK 0x1020dc310-0x1020e0000]	   15600(0)		[FREE]
+-- Free List --
+[0x1020dc090] -> [0x1020dc310] -> NULL

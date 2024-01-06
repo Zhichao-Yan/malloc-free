@@ -12,6 +12,6 @@ clean:
 	rm -rf $(dir)/*
 
 test: $(lib)
-	@cd ./tests; ./test.sh 
+	@cd ./tests; ./test.sh $(run)
 
 

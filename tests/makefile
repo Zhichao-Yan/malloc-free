@@ -1,10 +1,10 @@
 CC := gcc
 CFLAGS += -Wall -Wno-unused-variable -g -pthread -I../ 
 LDLIBS += -lallocator -L/Users/Yan/Project/just-do-it/Finished/malloc/build 
-DIR1 := ./build
-DIR2 := ./progs
+DIR1 := /Users/Yan/Project/just-do-it/Finished/malloc/tests/build
+DIR2 := /Users/Yan/Project/just-do-it/Finished/malloc/tests/progs
 
-objects := allocations-0 allocations-1 allocations-2 allocations-3 allocations-4 allocations-5
+objects := print_test scribble free thread_safe total_pages_allocated leak_check basic0 basic1
 all: $(objects)
 
 $(objects): %: $(DIR2)/%.c

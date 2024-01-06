@@ -1,0 +1,36 @@
+Unix Utilities Runs 'ls /'  with custom memory allocator
+Sat Jan  6 13:21:37 CST 2024
+<------expected result------>
+Applications
+Library
+System
+Users
+Volumes
+bin
+cores
+dev
+etc
+home
+opt
+private
+sbin
+tmp
+usr
+var
+<------actual result-------->
+Applications
+Library
+System
+Users
+Volumes
+bin
+cores
+dev
+etc
+home
+opt
+private
+sbin
+tmp
+usr
+var
