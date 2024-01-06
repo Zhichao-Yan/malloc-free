@@ -5,11 +5,11 @@ CC := gcc
 CFLAGS := -Wall -g -pthread -fPIC -shared
 
 # generate allocator.so
-$(lib): allocator.c 
+$(lib): clean allocator.c 
 	$(CC) $(CFLAGS) -DDEBUG=$(DEBUG) allocator.c -o $(lib)
 
 clean:
-	rm -rf $(dir)/*
+	@rm -rf $(dir)/*
 
 test: $(lib)
 	@cd ./tests; ./test.sh $(run)

@@ -2,7 +2,7 @@
  * @Author       : chao
  * @Date         : 2023-11-10 16:12:17 +0800
  * @LastEditors  : yan yzc53@icloud.com
- * @LastEditTime : 2024-01-06 08:57:20 +0800
+ * @LastEditTime : 2024-01-07 01:40:38 +0800
  * @FilePath     : /malloc/allocator.c
  * @Description  :
  * @QQ           : 1594047159@qq.com
@@ -85,8 +85,11 @@ size_t vmsize()
 static void add_to_freelist(struct block *ptr)
 {
     NEXT_FREE_BLOCK(ptr) = freed;
-    PREV_FREE_BLOCK(freed) = ptr;
     PREV_FREE_BLOCK(ptr) = NULL;
+    if(freed)
+    {
+        PREV_FREE_BLOCK(freed) = ptr;
+    }
     freed = ptr;
 }
 
@@ -130,6 +133,10 @@ static struct block *split_off(struct block *bp, size_t size)
     /* link up */
     fbp->next = bp->next;
     fbp->prev = bp;
+    if(bp->next)
+    {
+        bp->next->prev = fbp;
+    }
     bp->next = fbp;
     /* strech the tail */
     if (bp == tail)
@@ -227,9 +234,7 @@ static void place(void *ptr, size_t block_size)
         /* split a new block from bp */
         struct block *fbp = split_off(bp,block_size);
         /* Insert fbp into free block list */
-        NEXT_FREE_BLOCK(fbp) = freed;
-        PREV_FREE_BLOCK(fbp) = NULL;
-        freed = fbp;
+        add_to_freelist(fbp);
     }
 }
 
@@ -528,11 +533,15 @@ void print_blocklist()
             printf("[REGION %p]\n",ptr->region);
             region = ptr->region;
         }
-        printf("\t[BLOCK %p-%p]\t%8zd(%zd)",ptr,(char*)ptr + GET_SIZE(ptr),GET_SIZE(ptr),ptr->rsize);
+        /* in order to align the output */
+        char rs[10];
+        sprintf(rs,"(%zd)",ptr->rsize);
+        /* output the allocation state */
+        printf("\t[BLOCK %p-%p]\t%8zd%-8s",ptr,(char*)ptr + GET_SIZE(ptr),GET_SIZE(ptr),rs);
         if(GET_ALLOC(ptr) == 1)
-            printf("\t\t[USED]\n");
+            printf("\t[USED]\n");
         else
-            printf("\t\t[FREE]\n");
+            printf("\t[FREE]\n");
         ptr = ptr->next;
     }
 }

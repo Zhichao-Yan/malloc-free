@@ -12,11 +12,12 @@
 
 int main()
 {
+    size_t vm_limit = 512;
     srand(time(0));
-    size_t vm_start = vmsize();
-    printf("Virtual Memory Size at startup (pages): %zu\n", vm_start);
     for( int i = 0; i < NUM_ROUNDS; ++i)
     {
+        size_t vm_start = vmsize();
+        printf("[%d]th rounds: Virtual Memory Size at start (pages): %zu\n" , i , vm_start);
         int *alloc[NUM_ALLOCATIONS];
         for(int j = 0; j < NUM_ALLOCATIONS; j++)
         {
@@ -29,17 +30,20 @@ int main()
             memset(ptr,0,cnt * sizeof(int));
             alloc[j] = ptr;
         }
+        print_memory();
         for (int j = 0; j < NUM_ALLOCATIONS; ++j) {
             free(alloc[j]);
         }
         /* currrent virtual memory(pages) */
-        size_t vm = vmsize();
-        printf("Virtual Memory Size at [%d]rounds (pages): %zu\n", i, vm);
-        if (vm != 0) {
+        size_t vm_end = vmsize();
+        printf("[%d]th rounds: Virtual Memory Size at end(pages): %zu\n\n", i, vm_end);
+        if (vm_end - vm_start > vm_limit) {
             printf("free() is not functioning correctly,\
                     it is unable to free all the allocations.\n");
             exit(1);
         }
     }
+    printf("free() is functioning correctly,\
+        it is able to free all the allocations.\n");
     return 0;
 }
