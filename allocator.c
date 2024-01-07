@@ -2,7 +2,7 @@
  * @Author       : chao
  * @Date         : 2023-11-10 16:12:17 +0800
  * @LastEditors  : yan yzc53@icloud.com
- * @LastEditTime : 2024-01-08 01:27:11 +0800
+ * @LastEditTime : 2024-01-08 01:34:10 +0800
  * @FilePath     : /malloc/allocator.c
  * @Description  :
  * @QQ           : 1594047159@qq.com
@@ -40,48 +40,41 @@ struct block *freed = NULL;
 #include <unistd.h>
 
 #ifdef __APPLE__
-    #define OS "macOS"
     #include <mach/mach.h>
-#elif __linux__
-    #define OS "linux"
-#else
-    #define OS "unknown"
 #endif
 
 size_t vmsize()
 {
-    size_t num;
-    if(strcmp(OS,"macOS") == 0)
-    {
-        // 获取当前进程的任务端口
-        task_t task = mach_task_self();
-        // 定义一个结构来保存任务信息
-        task_basic_info_data_t info;
-        mach_msg_type_number_t count = TASK_BASIC_INFO_COUNT;
-        kern_return_t result = task_info(task, TASK_BASIC_INFO, (task_info_t)&info, &count);
-        if (result == KERN_SUCCESS) {
-            // 虚拟字节数量/虚拟页面大小 
-            num =  info.virtual_size / sysconf(_SC_PAGESIZE);
-            // 虚拟页面数量，以页面为单位
-            return num;
-        } else {
-            fprintf(stderr, "Failed to get task info\n");
-            return 0;
-        }
-
-    }else if(strcmp(OS,"linux") == 0)
-    {
-        pid_t pid = getpid();
-        char path[4096] = {0};
-        /* read the info of process according to its pid from its file located at /proc/pid/statm */
-        sprintf(path,"/proc/%d/statm",pid);
-        FILE *p = fopen(path,"r");
-        /* the first data in /proc/%d/statm represents its virtual memory pages */
-        fscanf(p,"%zu",&num);
-        fclose(p);
+    size_t num = 0;
+#ifdef __APPLE__
+    // 获取当前进程的任务端口
+    task_t task = mach_task_self();
+    // 定义一个结构来保存任务信息
+    task_basic_info_data_t info;
+    mach_msg_type_number_t count = TASK_BASIC_INFO_COUNT;
+    kern_return_t result = task_info(task, TASK_BASIC_INFO, (task_info_t)&info, &count);
+    if (result == KERN_SUCCESS) {
+        // 虚拟字节数量/虚拟页面大小 
+        num =  info.virtual_size / sysconf(_SC_PAGESIZE);
+        // 虚拟页面数量，以页面为单位
         return num;
+    } else {
+        fprintf(stderr, "Failed to get task info\n");
+        return 0;
     }
-    return 0;
+#endif
+#ifdef __linux__
+    pid_t pid = getpid();
+    char path[4096] = {0};
+    /* read the info of process according to its pid from its file located at /proc/pid/statm */
+    sprintf(path,"/proc/%d/statm",pid);
+    FILE *p = fopen(path,"r");
+    /* the first data in /proc/%d/statm represents its virtual memory pages */
+    fscanf(p,"%zu",&num);
+    fclose(p);
+    return num;
+#endif
+    return num;
 }
 
 static void add_to_freelist(struct block *ptr)
