@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# first clean, then compile all files
-
 cases=""
 # echo $@
 if [ $# -eq 0 ]
@@ -15,7 +13,21 @@ else
         cases=$cases$file$'\n'
     done
 fi
-# echo $cases
+
+# importing the lib(liballocator.so) before executing scripts
+lib=/Users/Yan/Project/just-do-it/Finished/malloc/build/liballocator.so
+os_type=$(uname)
+case $os_type in
+    # macOS
+    Darwin*)
+        export DYLD_INSERT_LIBRARIES=$lib ;;
+    # Linux
+    Linux*)
+        export LD_PRLOAD=$lib ;;
+    *)
+        echo "Unsupported operating system: $os_type"
+        exit 1 ;;
+esac
 
 echo "Building test programs...."
 make clean all -s
