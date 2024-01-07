@@ -7,9 +7,11 @@
 ### What is in it
 * `malloc/tests/script`  test script files
 * `malloc/tests/progs` test source file
+* `malloc/tests/tesh.sh` start-up script file
+* `malloc/tests/makefile` makefile for building test source files
 * `malloc/allocator.c` source file
 * `malloc/allocator.h` head file
-* `malloc/makefile` makefile for liballocator.so
+* `malloc/makefile` makefile generates liballocator.so
 
 ------------------
 ### What functions does it implement
@@ -24,8 +26,8 @@
 * size_t vmsize();
 
 ------------------
-### How to use the shared library
-
+### How do you build it?
+`mkdir build && make`
 
 ------------------
 ### how to test it

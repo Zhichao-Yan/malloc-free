@@ -1,4 +1,19 @@
 #!/bin/bash
+# test/build/ is a directory where you can find your executable of test source file
+echo "Building test programs...."
+if [ ! -d "build" ]
+then
+    mkdir build
+    make -s
+else
+    make clean all -s
+fi
+
+# test/output/ is a directory where you can find your output file
+if [ ! -d "output" ]
+then
+    mkdir output
+fi
 
 cases=""
 # echo $@
@@ -29,6 +44,7 @@ case $os_type in
         exit 1 ;;
 esac
 
+echo "Start testing....."
 for case in $cases
 do
     if [ -x $case ]

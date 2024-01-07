@@ -2,7 +2,7 @@
  * @Author       : chao
  * @Date         : 2023-11-10 16:12:17 +0800
  * @LastEditors  : yan yzc53@icloud.com
- * @LastEditTime : 2024-01-07 23:34:06 +0800
+ * @LastEditTime : 2024-01-08 00:28:26 +0800
  * @FilePath     : /malloc/allocator.c
  * @Description  :
  * @QQ           : 1594047159@qq.com
@@ -497,7 +497,6 @@ void *realloc(void *ptr, size_t size)
     free(ptr);
     return rptr;
 }
-
 
 
 static bool no_overflow(size_t x, size_t y) {

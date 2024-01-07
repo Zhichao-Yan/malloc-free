@@ -52,4 +52,5 @@ Mkfile.old
 dkms.conf
 .vscode/
 tests/build/*
+tests/output/*
 *.txt
