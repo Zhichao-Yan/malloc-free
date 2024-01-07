@@ -38,9 +38,7 @@ case $os_type in
         export DYLD_INSERT_LIBRARIES=$lib ;;
     # Linux
     Linux*)
-        export LD_PRELOAD=$(pwd)/$lib
-        echo "Current working directory: $(pwd)"
-        echo "LD_PRELOAD is set to: $LD_PRELOAD"
+        export LD_PRELOAD=$lib
         ;;
     *)
         echo "Unsupported operating system: $os_type"
