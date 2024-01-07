@@ -2,7 +2,7 @@
  * @Author       : chao
  * @Date         : 2023-11-10 16:12:17 +0800
  * @LastEditors  : yan yzc53@icloud.com
- * @LastEditTime : 2024-01-08 00:28:26 +0800
+ * @LastEditTime : 2024-01-08 01:27:11 +0800
  * @FilePath     : /malloc/allocator.c
  * @Description  :
  * @QQ           : 1594047159@qq.com
@@ -38,10 +38,10 @@ struct block *freed = NULL;
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <mach/mach.h>
 
 #ifdef __APPLE__
     #define OS "macOS"
+    #include <mach/mach.h>
 #elif __linux__
     #define OS "linux"
 #else
