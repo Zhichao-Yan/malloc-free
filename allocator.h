@@ -2,7 +2,7 @@
  * @Author       : chao
  * @Date         : 2023-11-10 16:12:21 +0800
  * @LastEditors  : yan yzc53@icloud.com
- * @LastEditTime : 2024-01-03 15:55:45 +0800
+ * @LastEditTime : 2024-01-07 23:44:48 +0800
  * @FilePath     : /malloc/allocator.h
  * @Description  : 
  * @QQ           : 1594047159@qq.com
@@ -36,7 +36,6 @@ struct link{
     struct block *pred;
     struct block *succ; 
 }__attribute__((packed));
-
 
 void *malloc(size_t size);
 void free(void *ptr);

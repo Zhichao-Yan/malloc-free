@@ -1,20 +1,27 @@
-# memory-allocator
+# Malloc
 ------------------
 ### What is it
 
 
 ------------------
 ### What is in it
-* `myallocator.h` header file
-* `myallocator.c` source file
-* `main.c` test file
+* `malloc/tests/script`  test script files
+* `malloc/tests/progs` test source file
+* `malloc/allocator.c` source file
+* `malloc/allocator.h` head file
+* `malloc/makefile` makefile for liballocator.so
 
 ------------------
-### What does it implement
-* `void *mymalloc(size_t size)`
-* `void myfree(void *block)`
-* `void *mycalloc(size_t num, size_t nsize)`
-* `void *myrealloc(void *block, size_t size)`
+### What functions does it implement
+* void *malloc(size_t size);
+* void free(void *ptr);
+* void *calloc(size_t nmemb, size_t size);
+* void *realloc(void *ptr, size_t size);
+* void print_memory();
+* void print_freelist();
+* void print_blocklist();
+* void leak_check();
+* size_t vmsize();
 
 ------------------
 ### How to use the shared library
@@ -25,9 +32,6 @@
 ```shell
 # Run all test cases:
 make test
-
-# Run a specific test case:
-make test run=4
 
 # Run a few specific test cases (4, 8, and 12 in this case):
 make test run='4 8 12'

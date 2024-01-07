@@ -14,6 +14,6 @@ clean:
 test: $(lib)
 	@echo "Building test programs...."
 	@echo "Start testing....."
-	@cd ./tests; make; ./test.sh $(run)
+	@cd ./tests; mkdir output build; make; ./test.sh $(run)
 
 
