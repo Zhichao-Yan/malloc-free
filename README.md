@@ -1,7 +1,15 @@
-# Malloc
+# Malloc-Free
 ------------------
 ### What is it
-
+a malloc/free implementation
+------------------
+### Features
+* explicit double-linked list for free blocks
+* doubly-linked list for used blocks
+* first-fit/worst-fit/best-fit algorithms
+* use only `mmap()` instead of `sbrk()`
+* `print_memory()`current state of memory 
+* memory leak check when program quits(C destructor)
 
 ------------------
 ### What is in it
@@ -36,12 +44,13 @@
 make test
 
 # Run a few specific test cases (4, 8, and 12 in this case):
-make test run='4 8 12'
+make test run='1 2 3'
 ```
 
 ------------------
 ### Reference Links
-1. [memory-allocator](https://github.com/rtmacaibay/memory-allocator/tree/master)
+* [task specification](https://www.cs.usfca.edu/~mmalensek/cs326/assignments/project-3.html)
+* [memory-allocator](https://github.com/rtmacaibay/memory-allocator/tree/master)
 ------------------
 
 
