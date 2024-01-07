@@ -35,7 +35,8 @@ os_type=$(uname)
 case $os_type in
     # macOS
     Darwin*)
-        export DYLD_INSERT_LIBRARIES=$lib ;;
+        export DYLD_INSERT_LIBRARIES=$lib 
+        ;;
     # Linux
     Linux*)
         export LD_PRELOAD=$lib
