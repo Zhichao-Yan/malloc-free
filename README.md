@@ -1,6 +1,6 @@
 # Malloc-Free
 ------------------
-### What is it
+### What's it
 a malloc/free implementation
 ------------------
 ### Features
@@ -12,7 +12,7 @@ a malloc/free implementation
 * memory leak check when program quits(C destructor)
 
 ------------------
-### What is in it
+### What's in it
 * `malloc/tests/script`  test script files
 * `malloc/tests/progs` test source file
 * `malloc/tests/tesh.sh` start-up script file
@@ -38,7 +38,7 @@ a malloc/free implementation
 `mkdir build && make`
 
 ------------------
-### how to test it
+### How to test it
 ```shell
 # Run all test cases:
 make test
