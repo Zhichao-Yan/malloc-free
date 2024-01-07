@@ -2,7 +2,7 @@
  * @Author       : chao
  * @Date         : 2023-11-10 16:12:17 +0800
  * @LastEditors  : yan yzc53@icloud.com
- * @LastEditTime : 2024-01-07 01:40:38 +0800
+ * @LastEditTime : 2024-01-07 21:47:52 +0800
  * @FilePath     : /malloc/allocator.c
  * @Description  :
  * @QQ           : 1594047159@qq.com
@@ -10,6 +10,7 @@
  */
 
 #include "allocator.h"
+
 
 /* aligned the size to 16 bytes */
 #define ALIGNED(size) ((((size) + 15) / 16) * 16)
@@ -77,6 +78,7 @@ size_t vmsize()
         FILE *p = fopen(path,"r");
         /* the first data in /proc/%d/statm represents its virtual memory pages */
         fscanf(p,"%zu",&num);
+        fclose(p);
         return num;
     }
     return 0;
@@ -143,7 +145,7 @@ static struct block *split_off(struct block *bp, size_t size)
         tail = fbp;
     
     /* size info */
-    fbp->size = bp->size - size;
+    fbp->size = GET_SIZE(bp) - size;
     bp->size = size;
 
     /* Region this block is a part of,This should point to the first block in the region */
@@ -218,7 +220,6 @@ void *search(size_t size)
         else
             ptr = mark;
     }
-
     remove_from_freelist(ptr);
     /* set the next free block point and previous free block point as NULL  */
     NEXT_FREE_BLOCK(ptr) = NULL;
@@ -237,7 +238,6 @@ static void place(void *ptr, size_t block_size)
         add_to_freelist(fbp);
     }
 }
-
 
 
 void *malloc(size_t request_size)
@@ -446,8 +446,9 @@ void *realloc(void *ptr, size_t size)
      * no changes need to be made
      * block can be resized in place.
      */
-    if(bp->size - sizeof(struct block) >= size)
+    if(GET_SIZE(bp) - sizeof(struct block) >= size)
     {
+        
         if(size >= bp->rsize)
         {
             bp->rsize = size;
@@ -456,7 +457,7 @@ void *realloc(void *ptr, size_t size)
         {
             /* shrunk_size is the block size when request for size bytes */
             size_t shrunk_size = BLOCK_SIZE(size);
-            if(bp->size - shrunk_size >= MIN_BLOCK_SIZE)
+            if(GET_SIZE(bp) - shrunk_size >= MIN_BLOCK_SIZE)
             {
                 /* split off (bp->size - shrunk_size) free space from bp to form fbp */
                 struct block *fbp = split_off(bp,shrunk_size);
@@ -469,7 +470,8 @@ void *realloc(void *ptr, size_t size)
                     remove_from_freelist(btk);
                     add_to_freelist(fbp);
                 }
-            }          
+            }
+            SET(bp);          
             bp->rsize = size;
             return ptr;
         }
@@ -479,11 +481,12 @@ void *realloc(void *ptr, size_t size)
         {
             /* calculate neighboring block size + bp's data portion*/
             /* check whether the block can expand into a neighboring free block. */
-            if(fbp->size + (bp->size - sizeof(struct block)) >= size)
+            if(fbp->size + (GET_SIZE(bp) - sizeof(struct block)) >= size)
             {
                 merge_block(bp,fbp);
                 remove_from_freelist(fbp);
                 place(bp,BLOCK_SIZE(size));
+                SET(bp);
                 bp->rsize = size;
                 return ptr;
             }

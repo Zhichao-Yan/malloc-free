@@ -32,7 +32,7 @@ do
     if [ $? -ne 0 ]
     then
         echo $case"  [ FAILED ]"
-    # else
-    #     #echo $case"  [ OK ]"
+    else
+        echo $case"  [ OK ]"
     fi
 done
