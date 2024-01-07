@@ -29,9 +29,6 @@ case $os_type in
         exit 1 ;;
 esac
 
-echo "Building test programs...."
-make clean all -s
-
 for case in $cases
 do
     if [ -x $case ]

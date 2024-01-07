@@ -6,12 +6,14 @@ CFLAGS := -Wall -g -pthread -fPIC -shared
 
 # generate allocator.so
 $(lib): clean allocator.c 
-	$(CC) $(CFLAGS) -DDEBUG=$(DEBUG) allocator.c -o $(lib)
+	@$(CC) $(CFLAGS) -DDEBUG=$(DEBUG) allocator.c -o $(lib)
 
 clean:
 	@rm -rf $(dir)/*
 
 test: $(lib)
-	@cd ./tests; ./test.sh $(run)
+	@echo "Building test programs...."
+	@echo "Start testing....."
+	@cd ./tests; make; ./test.sh $(run)
 
 

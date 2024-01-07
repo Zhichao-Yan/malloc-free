@@ -8,7 +8,7 @@ objects := print_test scribble free total_pages_allocated leak_check basic0 basi
 all: $(objects)
 
 $(objects): %: $(DIR2)/%.c
-	$(CC) $(CFLAGS) $^ -o $(DIR1)/$@ $(LDLIBS)
+	@$(CC) $(CFLAGS) $^ -o $(DIR1)/$@ $(LDLIBS)
 clean:
 	rm -rf $(DIR1)/* 
 
