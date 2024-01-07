@@ -30,7 +30,7 @@ else
 fi
 
 # importing the lib(liballocator.so) before executing scripts
-lib=/Users/Yan/Project/just-do-it/Finished/malloc/build/liballocator.so
+lib=../build/liballocator.so
 os_type=$(uname)
 case $os_type in
     # macOS
