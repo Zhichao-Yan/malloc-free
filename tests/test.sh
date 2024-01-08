@@ -39,7 +39,7 @@ case $os_type in
         ;;
     # Linux
     Linux*)
-        LD_PRELOAD=$lib
+        export LD_PRELOAD=$lib
         ;;
     *)
         echo "Unsupported operating system: $os_type"
