@@ -25,7 +25,9 @@ else
 fi
 
 # importing the lib(liballocator.so) before executing scripts
-script_dir=$(dirname $(readlink -f $0))
+#script_dir=$(dirname $(readlink -f $0))
+# 获取脚本所在目录的绝对路径
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export lib=$script_dir/../build/liballocator.so
 
 if [ ! -e $lib ]
