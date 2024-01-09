@@ -8,7 +8,7 @@ echo "ldd output for ./build/print_test:"
 ldd ./build/print_test
 
 echo "Running ldconfig..."
-ldconfig
+sudo ldconfig
 
 echo "Current working directory: $(pwd)"
 echo "Script directory: $(dirname $(readlink -f $0))"

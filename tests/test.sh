@@ -1,6 +1,5 @@
 #!/bin/bash
 # test/build/ is a directory where you can find your executable of test source file
-echo "Before LD_PRELOAD: $LD_PRELOAD"
 echo "Building test programs...."
 
 # test/output/ is a directory where you can find your output file
