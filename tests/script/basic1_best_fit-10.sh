@@ -10,10 +10,11 @@ exec 1>$path
 echo "Basic Best Fit"
 date
 
-if [ -e $lib ]
+export ALLOCATOR_ALGORITHM=best_fit
+if [[ $os_type == Darwin* ]]
 then
-    export ALLOCATOR_ALGORITHM=best_fit
-    ./build/basic1
-else
-    echo "liballocator.so doesn't exist!!"
+    DYLD_INSERT_LIBRARIES=$lib ./build/basic1
+elif [[ $os_type == Linux* ]]
+then
+    LD_PRELOAD=$lib ./build/basic1
 fi

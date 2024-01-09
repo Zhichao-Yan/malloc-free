@@ -10,9 +10,10 @@ exec 1>$path
 echo "Pages Allocated"
 date
 
-if [ -e $lib ]
+if [[ $os_type == Darwin* ]]
 then
-    ./build/total_pages_allocated
-else
-    echo "liballocator.so doesn't exist!!"
+    DYLD_INSERT_LIBRARIES=$lib ./build/total_pages_allocated
+elif [[ $os_type == Linux* ]]
+then
+    LD_PRELOAD=$lib ./build/total_pages_allocated
 fi

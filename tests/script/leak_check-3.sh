@@ -10,9 +10,10 @@ exec 1>$path
 echo "memory leak check after finish"
 date
 
-if [ -e $lib ]
+if [[ $os_type == Darwin* ]]
 then
-    ./build/leak_check
-else
-    echo "liballocator.so doesn't exist!!"
+    DYLD_INSERT_LIBRARIES=$lib ./build/leak_check
+elif [[ $os_type == Linux* ]]
+then
+    LD_PRELOAD=$lib ./build/leak_check
 fi

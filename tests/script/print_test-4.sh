@@ -9,10 +9,11 @@ exec 1>$path
 
 echo "print_memory() function"
 date
-
-if [ -e $lib ]
+if [[ $os_type == Darwin* ]]
 then
-    ./build/print_test
-else
-    echo "liballocator.so doesn't exist!!"
+    DYLD_INSERT_LIBRARIES=$lib ./build/print_test
+elif [[ $os_type == Linux* ]]
+then
+    LD_PRELOAD=$lib ./build/print_test
 fi
+

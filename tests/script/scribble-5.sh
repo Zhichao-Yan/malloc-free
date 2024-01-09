@@ -28,9 +28,10 @@ EOM
 echo "<------expected result------>"
 echo $expected
 echo "<------actual result-------->"
-if [ -e $lib ]
+if [[ $os_type == Darwin* ]]
 then
-    ./build/scribble
-else
-    echo "liballocator.so doesn't exist!!"
+    DYLD_INSERT_LIBRARIES=$lib ./build/scribble
+elif [[ $os_type == Linux* ]]
+then
+    LD_PRELOAD=$lib ./build/scribble
 fi

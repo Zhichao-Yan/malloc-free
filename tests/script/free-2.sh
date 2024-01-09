@@ -11,9 +11,10 @@ echo "Test free() functionality" \
     "Makes a large amount of random allocations and frees them"
 date
 
-if [ -e $lib ]
+if [[ $os_type == Darwin* ]]
 then
-    ./build/free
-else
-    echo "liballocator.so doesn't exist!!"
+    DYLD_INSERT_LIBRARIES=$lib ./build/free
+elif [[ $os_type == Linux* ]]
+then
+    LD_PRELOAD=$lib ./build/free
 fi

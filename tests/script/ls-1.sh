@@ -10,10 +10,12 @@ exec 1>$path
 echo "Unix Utilities" \
     "Runs 'ls /'  with custom memory allocator"
 date
-if [ -e $lib ]
+
+echo "<------expected result------>"
+if [[ $os_type == Darwin* ]]
 then
-    echo "<------expected result------>"
-    ls /
-else
-    echo "liballocator.so doesn't exist!!"
+    DYLD_INSERT_LIBRARIES=$lib ls /
+elif [[ $os_type == Linux* ]]
+then
+    LD_PRELOAD=$lib ls /
 fi

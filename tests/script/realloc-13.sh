@@ -10,9 +10,10 @@ exec 1>$path
 echo "Test functionality of realloc()"
 date
 
-if [ -e $lib ]
+if [[ $os_type == Darwin* ]]
 then
-   ./build/realloc
-else
-    echo "liballocator.so doesn't exist!!"
+    DYLD_INSERT_LIBRARIES=$lib ./build/realloc
+elif [[ $os_type == Linux* ]]
+then
+    LD_PRELOAD=$lib ./build/realloc
 fi

@@ -30,31 +30,24 @@ else
 fi
 
 # importing the lib(liballocator.so) before executing scripts
-lib=../build/liballocator.so
-os_type=$(uname)
-case $os_type in
-    # macOS
-    Darwin*)
-        export DYLD_INSERT_LIBRARIES=$lib 
-        ;;
-    # Linux
-    Linux*)
-        export LD_PRELOAD=$lib
-        ;;
-    *)
-        echo "Unsupported operating system: $os_type"
-        exit 1 ;;
-esac
+export lib=../build/liballocator.so
+if [ ! -e $lib ]
+then
+    echo "liballocator.so doesn't exist!!"
+    exit 1
+fi
+
+export os_type=$(uname)
 
 echo "Start testing....."
 for case in $cases
 do
     if [ -x $case ]
     then 
-        ${case}
+        "$case"
     else
         chmod +x "$case"
-        ${case}
+        "$case"
     fi
     if [ $? -ne 0 ]
     then
