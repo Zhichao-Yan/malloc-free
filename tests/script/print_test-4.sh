@@ -1,4 +1,8 @@
 # !/bin/bash
+echo "Current working directory: $(pwd)"
+echo "Script directory: $(dirname $(readlink -f $0))"
+echo "lib: $lib"
+echo "os_type: $os_type"
 
 script_name=$(basename $0)
 extracted_number=${script_name##*-}
