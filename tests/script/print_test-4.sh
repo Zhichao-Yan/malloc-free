@@ -1,7 +1,6 @@
 # !/bin/bash
 # Debug print statement
 echo "before LD_PRELOAD: $LD_PRELOAD"
-echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 echo "Before executing print_test, LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 
 echo "ldd output for ./build/print_test:"
@@ -9,6 +8,8 @@ ldd ./build/print_test
 
 echo "Running ldconfig..."
 sudo ldconfig
+# Debug print statement
+echo "Dynamic linker search path: $(ld --verbose | grep SEARCH_DIR | sed 's/SEARCH_DIR("=\|")//g')"
 
 echo "Current working directory: $(pwd)"
 echo "Script directory: $(dirname $(readlink -f $0))"
