@@ -30,6 +30,10 @@ fi
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export lib=$script_dir/../build/liballocator.so
 
+echo "Current working directory: $(pwd)"
+echo "Script directory: $script_dir"
+echo "Setting lib to: $lib"
+
 if [ ! -e $lib ]
 then
     echo "liballocator.so doesn't exist!!"
@@ -37,6 +41,8 @@ then
 fi
 
 export os_type=$(uname)
+
+echo "Before calling print_test-4.sh: lib=$lib, os_type=$os_type"
 
 echo "Start testing....."
 for case in $cases
