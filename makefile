@@ -5,7 +5,7 @@ CC := gcc
 CFLAGS := -Wall -g -pthread -fPIC -shared
 
 # generate allocator.so
-$(lib): allocator.c
+$(lib): allocator.c allocator.h
 	@$(CC) $(CFLAGS) -DDEBUG=$(DEBUG) allocator.c -o $(lib)
 
 clean:

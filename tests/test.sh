@@ -1,19 +1,14 @@
 #!/bin/bash
 # test/build/ is a directory where you can find your executable of test source file
 echo "Building test programs...."
-if [ ! -d "build" ]
-then
-    mkdir build
-    make -s
-else
-    make clean all -s
-fi
 
 # test/output/ is a directory where you can find your output file
-if [ ! -d "output" ]
-then
-    mkdir output
-fi
+# test/build/ is a directory where you can find your test program
+[ -d "./build" ] || mkdir ./build
+[ -d "./output" ] || mkdir ./output
+
+# compile test source file
+make clean all -s
 
 cases=""
 # echo $@
@@ -30,7 +25,9 @@ else
 fi
 
 # importing the lib(liballocator.so) before executing scripts
-export lib=../build/liballocator.so
+script_dir=$(dirname $(readlink -f $0))
+export lib=$script_dir/../build/liballocator.so
+
 if [ ! -e $lib ]
 then
     echo "liballocator.so doesn't exist!!"
