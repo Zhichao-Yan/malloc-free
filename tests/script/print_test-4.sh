@@ -2,6 +2,8 @@
 # Debug print statement
 echo "before LD_PRELOAD: $LD_PRELOAD"
 echo "Before executing print_test, LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+echo "Running strace to trace open and access system calls..."
+strace -e open,access ./build/print_test
 
 echo "ldd output for ./build/print_test:"
 ldd ./build/print_test
