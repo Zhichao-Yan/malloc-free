@@ -1,4 +1,13 @@
 # !/bin/bash
+# Debug print statement
+echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+
+echo "ldd output for ./build/print_test:"
+ldd ./build/print_test
+
+echo "Running ldconfig..."
+ldconfig
+
 echo "Current working directory: $(pwd)"
 echo "Script directory: $(dirname $(readlink -f $0))"
 echo "lib: $lib"
