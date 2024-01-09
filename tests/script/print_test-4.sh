@@ -1,6 +1,8 @@
 # !/bin/bash
 # Debug print statement
+echo "before LD_PRELOAD: $LD_PRELOAD"
 echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
+echo "Before executing print_test, LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
 
 echo "ldd output for ./build/print_test:"
 ldd ./build/print_test
@@ -30,3 +32,5 @@ then
     LD_PRELOAD=$lib ./build/print_test
 fi
 
+# Debug print statements
+echo "after LD_PRELOAD: $LD_PRELOAD"
