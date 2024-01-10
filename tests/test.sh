@@ -29,6 +29,7 @@ fi
 # 获取脚本所在目录的绝对路径
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export lib=$script_dir/../build/liballocator.so
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../build
 
 if [ ! -e $lib ]
 then
