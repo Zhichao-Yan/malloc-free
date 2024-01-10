@@ -3,6 +3,10 @@
 ### What's it?
 a malloc/free implementation
 
+------------------
+### platforms that have been tested
+* Linux(ubuntu)
+* macOS(14.0)
 
 ------------------
 ### Features
