@@ -1,6 +1,6 @@
 # Malloc-Free
 ------------------
-### What's it
+### What's it?
 a malloc/free implementation
 ------------------
 ### Features
@@ -12,7 +12,7 @@ a malloc/free implementation
 * memory leak check when program quits(C destructor)
 
 ------------------
-### What's in it
+### What's in it?
 * `malloc/tests/script`  test script files
 * `malloc/tests/progs` test source file
 * `malloc/tests/tesh.sh` start-up script file
@@ -22,7 +22,7 @@ a malloc/free implementation
 * `malloc/makefile` makefile generates liballocator.so
 
 ------------------
-### What functions does it implement
+### What functions does it implement?
 * void *malloc(size_t size);
 * void free(void *ptr);
 * void *calloc(size_t nmemb, size_t size);
@@ -38,7 +38,14 @@ a malloc/free implementation
 `mkdir build && make`
 
 ------------------
-### How to test it
+### How to use it?
+```shell
+make
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./build
+LD_PRELOAD=./build/liballocator.so ls /
+```
+------------------
+### How to test it?
 ```shell
 # Run all test cases:
 make test
